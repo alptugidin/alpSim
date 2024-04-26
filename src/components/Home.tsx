@@ -1,14 +1,15 @@
+import React from 'react';
+import Menu from './Menu.tsx';
+import {useSelector} from 'react-redux';
+import {RootState} from '../store/store.ts';
+import {useAppSelector} from '../hooks.ts';
+
 const Home = () => {
+  const {name} = useAppSelector(state => state.menu);
   return (
-    <div>
-      <h1>Home</h1>
-      <p>Welcome to the Home page!</p>
-      <button
-        className={'bg-blue-500 text-white p-2 rounded'}
-        onClick={() => {
-          window.openNewWindow();
-        }}
-      >open popup</button>
+    <div className={'h-[100vh] flex'}>
+      <Menu />
+      <div className={'w-9/12 p-3'}>active memnu {name}</div>
     </div>
   );
 };

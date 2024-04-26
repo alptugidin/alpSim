@@ -1,5 +1,6 @@
 import { IrsdkSessionEvent } from './types/SessionEvent';
 import { IrsdkTelemetryEvent } from './types/TelemetryEvent';
+import React from 'react';
 
 export declare global {
   interface Window {
@@ -28,4 +29,11 @@ export declare module 'node-irsdk-2023' {
 
   export function init(opts?: Options): JsIrSdk;
   export function getInstance(): JsIrSdk;
+}
+
+export interface IMenu {
+  title: string;
+  name: string;
+  isActive: boolean;
+  component: React.FC;
 }

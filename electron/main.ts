@@ -75,7 +75,7 @@ app.on('ready', async () => {
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs'),
-      nodeIntegration: true
+      nodeIntegration: true,
     },
   });
 
@@ -87,7 +87,10 @@ app.on('ready', async () => {
   ipcMain.on('open-new-window', async () => {
     await openNewWindow();
   });
-
+  win.setMenu(null);
+  win.setSize(1000, 800);
+  win.resizable = false;
+  win.setAlwaysOnTop(true, 'normal');
   if (VITE_DEV_SERVER_URL) {
     await win.loadURL(VITE_DEV_SERVER_URL);
   } else {
