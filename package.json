@@ -3,6 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+    "license": "Apache-2.0",
+  "description": "Free and open source iRacing overlay.",
+    "author": {
+      "name": "Alptuğ İdin",
+      "email": "alptugidin@gmail.com"
+    },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
