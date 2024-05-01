@@ -1,46 +1,40 @@
 import React from 'react';
-import {IMenu} from '../types';
+import {IMenu, MenuName} from '../types';
 import {setActiveMenu} from '../features/irsdk/menuSlice.ts';
-import {useAppDispatch} from '../hooks.ts';
+import {useAppDispatch, useAppSelector} from '../hooks.ts';
 const Menu = () => {
+  const {name, enabled} = useAppSelector(state => state.menu);
   const dispatch = useAppDispatch();
-
   const menu: IMenu[] = [
     {
       title: 'Standings',
-      name: 'standings',
-      isActive: true,
-      component: () => <div></div>,
+      name : 'Standings',
+      isActive: false
     },
     {
       title: 'Relative',
-      name: 'relative',
-      isActive: false,
-      component: () => <div></div>,
+      name: 'Relative',
+      isActive: false
     },
     {
       title: 'Speedometer',
-      name: 'speedometer',
-      isActive: false,
-      component: () => <div></div>,
+      name: 'Speedometer',
+      isActive: false
     },
     {
       title: 'Trackmap',
-      isActive: false,
-      name: 'trackmap',
-      component: () => <div></div>,
+      name: 'Trackmap',
+      isActive: false
     },
     {
       title: 'Radar',
-      name: 'radar',
-      isActive: false,
-      component: () => <div></div>,
+      name: 'Radar',
+      isActive: false
     },
     {
       title: 'Fuel Indicator',
-      name: 'fuelIndicator',
-      isActive: false,
-      component: () => <div></div>,
+      name: 'FuelIndicator',
+      isActive: false
     }
   ];
 
@@ -54,14 +48,17 @@ const Menu = () => {
         <div className={'h-24 flex justify-center'}>
           <img src="/alpSim.svg" alt="" className={'w-1/2'}/>
         </div>
-        <ul className={'font-light text-lg flex flex-col gap-2 select-none'}>
+        <ul className={'font-light text-lg flex flex-col gap-2 select-none font-ubuntu-thin'}>
           {menu.map((item, index) => (
             <li
               onClick={() => handleMenuSelection(item.name)}
-              className={'cursor-pointer hover:bg-gray-700 px-2 py-1 transition-all hover:px-3 flex h-10 gap-1'}
+              style={{
+                paddingLeft: name === item.name ? '16px' : '',
+                backgroundColor: name === item.name ? 'rgb(55 65 81)' : ''
+              }}
+              className={'cursor-pointer hover:bg-gray-700 px-2 py-1 transition-all flex h-10 gap-1'}
               key={index}>
-              {/*<div className={`w-1.5 rounded-full ${item.isActive ? 'bg-green-600' : 'bg-red-600'}`} />*/}
-              <div className={`w-1.5 rounded-full  ${item.isActive ? ' bg-white glow' : 'bg-gray-500'}`}/>
+              <div className={`w-1.5 rounded-full transition-all ${enabled[item.name] ? ' bg-white glow' : 'bg-gray-500'}`}/>
               {item.title}
             </li>
           ))}

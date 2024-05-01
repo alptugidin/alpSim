@@ -1,9 +1,16 @@
+@import url(https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap);
+/* TODO font onload eklenecek*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: 'f1';
+    src: url('./assets/fonts/Formula1-Regular-1.ttf') format('truetype');
+}
 body {
-  @apply bg-gray-200;
+  /*@apply select-none;*/
+
 }
 
 .custom-shadow {
@@ -14,4 +21,32 @@ body {
 /* crate glow effect */
 .glow {
     box-shadow: 0 0 7px #fff;
+}
+
+.font-ubuntu-thin {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+}
+
+.font-ubuntu-regular {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 400;
+}
+
+.font-ubuntu-medium {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 500;
+}
+
+.font-ubuntu-bold {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 700;
+}
+
+.draggable {
+    -webkit-app-region: drag;
+}
+
+.text-f1 {
+    font-family: 'f1', sans-serif;
 }

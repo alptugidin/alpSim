@@ -1,7 +1,11 @@
-import { ipcRenderer, contextBridge } from 'electron';
-
+import {ipcRenderer, contextBridge} from 'electron';
 contextBridge.exposeInMainWorld('iRacing', {
-  data: (callBack: (m: string) => string) => ipcRenderer.on('iracing-data', (_event, message) => callBack(message))
+  telemetry: (callBack: (data: any) => any) => ipcRenderer.on('iracing-telemetry', (_event, data) => callBack(data)),
+  session: (callBack: (data: any) => any) => ipcRenderer.on('iracing-session', (_event, data) => callBack(data)),
 });
 
-contextBridge.exposeInMainWorld('openNewWindow', () => ipcRenderer.send('open-new-window'));
+contextBridge.exposeInMainWorld('box', {
+  open: (name: string) => ipcRenderer.send('open-box', name),
+  close: (name: string) => ipcRenderer.send('close-box', name),
+  placement: (callBack: (param: boolean) => boolean) => ipcRenderer.on('box-placement', (_event, param) => callBack(param))
+});

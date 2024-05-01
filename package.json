@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-    "license": "Apache-2.0",
+  "license": "Apache-2.0",
   "description": "Free and open source iRacing overlay.",
-    "author": {
-      "name": "Alptuğ İdin",
-      "email": "alptugidin@gmail.com"
-    },
+  "author": {
+    "name": "Alptuğ İdin",
+    "email": "alptugidin@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
@@ -20,14 +20,17 @@
     "@reduxjs/toolkit": "^2.2.3",
     "eslint-plugin-react": "^7.34.1",
     "node-irsdk-2023": "github:hmiefert/node-irsdk-2023",
+    "node-irsdk-mjo": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.1.1",
-    "react-router-dom": "^6.23.0"
+    "react-router-dom": "^6.23.0",
+    "redux-state-sync": "^3.1.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "@types/redux-state-sync": "^3.1.10",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "@vitejs/plugin-react": "^4.2.1",

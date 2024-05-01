@@ -1,39 +1,30 @@
-import { IrsdkSessionEvent } from './types/SessionEvent';
-import { IrsdkTelemetryEvent } from './types/TelemetryEvent';
+import {IrsdkSessionEvent} from './types/SessionEvent';
+import {IrsdkTelemetryEvent} from './types/TelemetryEvent';
 import React from 'react';
 
 export declare global {
   interface Window {
     iRacing: {
-        data: (callBack: (message: number) => void) => void;
+      telemetry: (callBack: (data) => void) => void;
+      session: (callBack: (data) => void) => void;
     },
-    openNewWindow: () => void;
+    box: {
+      open: (name: string) => void;
+      close: (name: string) => void;
+      placement: (callBack: (param: boolean) => void) => void;
+    }
   }
-}
-
-export declare module 'node-irsdk-2023' {
-  interface Options {
-    telemetryUpdateInterval?: number;
-    sessionInfoUpdateInterval?: number;
-    sessionInfoParser?: (data: any) => any;
-  }
-
-  interface JsIrSdk {
-    new (IrSdkNodeWrapper: any, opts: Options): void;
-    on(event: 'Connected', listener: () => void): this;
-    on(event: 'Disconnected', listener: () => void): this;
-    on(event: 'Telemetry', listener: (data: IrsdkTelemetryEvent) => void): this;
-    on(event: 'TelemetryDescription', listener: (data: any) => void): this;
-    on(event: 'SessionInfo', listener: (data: IrsdkSessionEvent) => void): this;
-  }
-
-  export function init(opts?: Options): JsIrSdk;
-  export function getInstance(): JsIrSdk;
 }
 
 export interface IMenu {
   title: string;
-  name: string;
+  name: MenuName;
   isActive: boolean;
-  component: React.FC;
 }
+
+export type MenuName = 'Standings' | 'Relative' | 'Speedometer' | 'Trackmap' | 'Radar' | 'FuelIndicator';
+export interface IToggle {
+  name: MenuName;
+}
+
+export type Theme = 'f1' | 'acc';

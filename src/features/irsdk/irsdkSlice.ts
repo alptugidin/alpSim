@@ -1,24 +1,30 @@
-import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {IrsdkTelemetryEvent} from 'node-irsdk-mjo/src/types/TelemetryEvent';
+import {IrsdkSessionEvent} from 'node-irsdk-mjo/src/types/SessionEvent';
 
 export interface IrsdkState {
-  data: object
+  telemetry: IrsdkTelemetryEvent;
+  session: IrsdkSessionEvent;
 }
 
 const initialState: IrsdkState = {
-  data: {}
+  telemetry: {} as IrsdkTelemetryEvent,
+  session: {} as IrsdkSessionEvent
 };
 
 export const irsdkSlice = createSlice({
   name: 'irsdk',
   initialState,
   reducers: {
-    setData: (state, action: PayloadAction<object>) => {
-      state.data = action.payload;
+    setTelemetry: (state, action: PayloadAction<IrsdkTelemetryEvent>) => {
+      state.telemetry = action.payload;
     },
+    setSession: (state, action: PayloadAction<IrsdkSessionEvent>) => {
+      state.session = action.payload;
+    }
   },
 });
 
-export const { setData } = irsdkSlice.actions;
+export const {setTelemetry, setSession} = irsdkSlice.actions;
 
 export default irsdkSlice.reducer;
