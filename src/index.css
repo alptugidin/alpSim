@@ -8,13 +8,26 @@
     font-family: 'f1';
     src: url('./assets/fonts/Formula1-Regular-1.ttf') format('truetype');
 }
-body {
-  /*@apply select-none;*/
 
+@font-face {
+    font-family: 'f1-wide';
+    src: url('./assets/fonts/Formula1-Wide.ttf') format('truetype');
+}
+
+body {
+    /*@apply select-none;*/
+    /*  @apply bg-gray-100/60 backdrop-filter backdrop-blur-xl select-none rounded-lg;*/
+    /*background-image: url(bg.png);*/
+    /*background-size: cover;*/
+}
+
+.main-bg {
+    background-image: url(bg.png);
+    background-size: cover;
 }
 
 .custom-shadow {
-    box-shadow: 0 1px 6px rgba(32,33,36,.28);
+    box-shadow: 0 1px 6px rgba(32, 33, 36, .28);
 }
 
 
@@ -49,4 +62,17 @@ body {
 
 .text-f1 {
     font-family: 'f1', sans-serif;
+}
+
+.text-f1-wide {
+    font-family: 'f1-wide', sans-serif;
+}
+
+.titlebar {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+}
+
+.titlebar-button {
+    -webkit-app-region: no-drag;
 }

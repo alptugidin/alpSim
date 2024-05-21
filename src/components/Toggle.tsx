@@ -21,10 +21,11 @@ const Toggle: React.FC<IToggle> = ({name}) => {
           window.box.close(name);
         }
       }}
-      className={`w-12 h-6 rounded-full p-1 cursor-pointer shadow-inner flex transition-all ${!value ? 'bg-gray-600 ' : 'bg-green-600'}`}>
+      className={`w-12 h-6 rounded-full p-1 cursor-pointer shadow-inner flex transition-all ${!value ? 'bg-gray-900 ' : 'bg-green-600'}`}>
       <div
         style={{transform: !value ? 'translateX(0px)' : 'translateX(24px)'}}
-        className={'w-4 h-4 bg-white rounded-full transition-all custom-shadow'}
+        className={'w-4 h-4 bg-' +
+         'white rounded-full transition-all custom-shadow'}
       />
     </div>
   );

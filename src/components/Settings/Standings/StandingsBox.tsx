@@ -5,9 +5,9 @@ import {IrsdkSessionEvent} from 'node-irsdk-mjo/src/types/SessionEvent';
 
 const StandingsBox = () => {
   const {placementMode} = useAppSelector(state => state.box);
-  const {session, telemetry} = useAppSelector(state => state.irsdk);
-
-  const [driverStandings, setDriverStandings] = useState<any[]>([]);
+  // const {session, telemetry} = useAppSelector(state => state.irsdk);
+  //
+  // const [driverStandings, setDriverStandings] = useState<any[]>([]);
   // useEffect(() => {
   //   const timeList = telemetry?.values?.CarIdxF2Time.map(item => timeConvert(item));
   //   const posList = telemetry?.values?.CarIdxPosition;
@@ -30,7 +30,7 @@ const StandingsBox = () => {
   // }, [session, telemetry]);
   return (
     // <div className={`bg-gray-900 h-[100vh] p-3 text-white ${placementMode ? 'draggable opacity-50' : 'opacity-90'}`}>
-    <div className={`bg-white h-[100vh] ${placementMode ? 'draggable' : ''}`}>
+    <div className={`h-[100vh] ${placementMode ? 'draggable' : ''}`}>
 
     </div>
   );

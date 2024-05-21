@@ -1,4 +1,5 @@
 const timeConvert = (seconds: number) => {
+  if (seconds === -1 || seconds === 0) return '--';
   const hours = Math.floor(seconds / 3600);
   const minutes = Math.floor((seconds % 3600) / 60);
   const sec = Math.floor(seconds % 60);

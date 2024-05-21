@@ -47,8 +47,9 @@ const   mock = [
     'DivisionID': 1,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:51.364',
-    'position': 1,
+    // 'LapTime': '1:51.364',
+    'LapTime': '1:51.000',
+    'Position': 1,
     'pc': -1
   },
   {
@@ -99,8 +100,8 @@ const   mock = [
     'DivisionID': 4,
     'CurDriverIncidentCount': 0,
     'TeamIncidentCount': 0,
-    'lapTime': '1:51.616',
-    'position': 2,
+    'LapTime': '1:51.616',
+    'Position': 2,
   },
   {
     'CarIdx': 57,
@@ -150,8 +151,8 @@ const   mock = [
     'DivisionID': 1,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:51.803',
-    'position': 3,
+    'LapTime': '1:51.803',
+    'Position': 3,
     'pc': -1
   },
   {
@@ -202,8 +203,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:51.898',
-    'position': 4,
+    'LapTime': '1:51.898',
+    'Position': 4,
     'pc': -1
   },
   {
@@ -254,8 +255,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:52.058',
-    'position': 5,
+    'LapTime': '1:52.058',
+    'Position': 5,
     'pc': -1
   },
   {
@@ -306,8 +307,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:52.359',
-    'position': 6,
+    'LapTime': '1:52.359',
+    'Position': 6,
     'pc': -1
   },
   {
@@ -358,8 +359,8 @@ const   mock = [
     'DivisionID': 0,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:52.574',
-    'position': 7,
+    'LapTime': '1:52.574',
+    'Position': 7,
     'pc': -1
   },
   {
@@ -410,8 +411,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.090',
-    'position': 8,
+    'LapTime': '1:53.090',
+    'Position': 8,
     'pc': -1
   },
   {
@@ -462,8 +463,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.346',
-    'position': 9,
+    'LapTime': '1:53.346',
+    'Position': 9,
     'pc': -1
   },
   {
@@ -514,8 +515,8 @@ const   mock = [
     'DivisionID': 7,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.634',
-    'position': 10,
+    'LapTime': '1:53.634',
+    'Position': 10,
     'pc': -1
   },
   {
@@ -566,8 +567,8 @@ const   mock = [
     'DivisionID': 3,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.707',
-    'position': 11,
+    'LapTime': '1:53.707',
+    'Position': 11,
     'pc': -1
   },
   {
@@ -618,8 +619,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.758',
-    'position': 12,
+    'LapTime': '1:53.758',
+    'Position': 12,
     'pc': -1
   },
   {
@@ -670,8 +671,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.852',
-    'position': 13,
+    'LapTime': '1:53.852',
+    'Position': 13,
     'pc': -1
   },
   {
@@ -722,8 +723,8 @@ const   mock = [
     'DivisionID': 5,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:53.950',
-    'position': 14,
+    'LapTime': '1:53.950',
+    'Position': 14,
     'pc': -1
   },
   {
@@ -774,8 +775,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.070',
-    'position': 15,
+    'LapTime': '1:54.070',
+    'Position': 15,
     'pc': 0.029113706201314926
   },
   {
@@ -826,8 +827,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.128',
-    'position': 16,
+    'LapTime': '1:54.128',
+    'Position': 16,
     'pc': -1
   },
   {
@@ -878,8 +879,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.416',
-    'position': 17,
+    'LapTime': '1:54.416',
+    'Position': 17,
     'pc': -1
   },
   {
@@ -930,8 +931,8 @@ const   mock = [
     'DivisionID': 3,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.456',
-    'position': 18,
+    'LapTime': '1:54.456',
+    'Position': 18,
     'pc': -1
   },
   {
@@ -982,8 +983,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.483',
-    'position': 19,
+    'LapTime': '1:54.483',
+    'Position': 19,
     'pc': -1
   },
   {
@@ -1034,8 +1035,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.580',
-    'position': 20,
+    'LapTime': '1:54.580',
+    'Position': 20,
     'pc': -1
   },
   {
@@ -1086,8 +1087,8 @@ const   mock = [
     'DivisionID': 5,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.589',
-    'position': 21,
+    'LapTime': '1:54.589',
+    'Position': 21,
     'pc': -1
   },
   {
@@ -1138,8 +1139,8 @@ const   mock = [
     'DivisionID': 4,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.598',
-    'position': 22,
+    'LapTime': '1:54.598',
+    'Position': 22,
     'pc': -1
   },
   {
@@ -1190,8 +1191,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.626',
-    'position': 23,
+    'LapTime': '1:54.626',
+    'Position': 23,
     'pc': -1
   },
   {
@@ -1242,8 +1243,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.693',
-    'position': 24,
+    'LapTime': '1:54.693',
+    'Position': 24,
     'pc': -1
   },
   {
@@ -1294,8 +1295,8 @@ const   mock = [
     'DivisionID': 0,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:54.702',
-    'position': 25,
+    'LapTime': '1:54.702',
+    'Position': 25,
     'pc': -1
   },
   {
@@ -1346,8 +1347,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:55.053',
-    'position': 26,
+    'LapTime': '1:55.053',
+    'Position': 26,
     'pc': -1
   },
   {
@@ -1398,8 +1399,8 @@ const   mock = [
     'DivisionID': 4,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:55.197',
-    'position': 27,
+    'LapTime': '1:55.197',
+    'Position': 27,
     'pc': -1
   },
   {
@@ -1450,8 +1451,8 @@ const   mock = [
     'DivisionID': 7,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:55.524',
-    'position': 28,
+    'LapTime': '1:55.524',
+    'Position': 28,
     'pc': -1
   },
   {
@@ -1502,8 +1503,8 @@ const   mock = [
     'DivisionID': 5,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:55.910',
-    'position': 29,
+    'LapTime': '1:55.910',
+    'Position': 29,
     'pc': -1
   },
   {
@@ -1554,8 +1555,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:56.842',
-    'position': 30,
+    'LapTime': '1:56.842',
+    'Position': 30,
     'pc': -1
   },
   {
@@ -1606,8 +1607,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:57.020',
-    'position': 31,
+    'LapTime': '1:57.020',
+    'Position': 31,
     'pc': -1
   },
   {
@@ -1658,8 +1659,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:57.525',
-    'position': 32,
+    'LapTime': '1:57.525',
+    'Position': 32,
     'pc': -1
   },
   {
@@ -1710,8 +1711,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:57.610',
-    'position': 33,
+    'LapTime': '1:57.610',
+    'Position': 33,
     'pc': -1
   },
   {
@@ -1762,8 +1763,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:57.718',
-    'position': 34,
+    'LapTime': '1:57.718',
+    'Position': 34,
     'pc': -1
   },
   {
@@ -1814,8 +1815,8 @@ const   mock = [
     'DivisionID': 0,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:57.924',
-    'position': 35,
+    'LapTime': '1:57.924',
+    'Position': 35,
     'pc': -1
   },
   {
@@ -1866,8 +1867,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:58.332',
-    'position': 36,
+    'LapTime': '1:58.332',
+    'Position': 36,
     'pc': -1
   },
   {
@@ -1918,8 +1919,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:58.541',
-    'position': 37,
+    'LapTime': '1:58.541',
+    'Position': 37,
     'pc': -1
   },
   {
@@ -1970,8 +1971,8 @@ const   mock = [
     'DivisionID': 0,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '1:59.091',
-    'position': 38,
+    'LapTime': '1:59.091',
+    'Position': 38,
     'pc': 0.8995799422264099
   },
   {
@@ -2022,8 +2023,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '2:01.777',
-    'position': 39,
+    'LapTime': '2:01.777',
+    'Position': 39,
     'pc': -1
   },
   {
@@ -2074,8 +2075,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '2:02.802',
-    'position': 40,
+    'LapTime': '2:02.802',
+    'Position': 40,
     'pc': -1
   },
   {
@@ -2126,8 +2127,8 @@ const   mock = [
     'DivisionID': 10,
     'CurDriverIncidentCount': -1,
     'TeamIncidentCount': -1,
-    'lapTime': '2:04.789',
-    'position': 41,
+    'LapTime': '2:04.789',
+    'Position': 41,
     'pc': -1
   }
 ];

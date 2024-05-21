@@ -5,11 +5,13 @@ import {IrsdkSessionEvent} from 'node-irsdk-mjo/src/types/SessionEvent';
 export interface IrsdkState {
   telemetry: IrsdkTelemetryEvent;
   session: IrsdkSessionEvent;
+  data: any;
 }
 
 const initialState: IrsdkState = {
   telemetry: {} as IrsdkTelemetryEvent,
-  session: {} as IrsdkSessionEvent
+  session: {} as IrsdkSessionEvent,
+  data: {} as any
 };
 
 export const irsdkSlice = createSlice({
@@ -21,10 +23,17 @@ export const irsdkSlice = createSlice({
     },
     setSession: (state, action: PayloadAction<IrsdkSessionEvent>) => {
       state.session = action.payload;
+    },
+    setData: (state, action: PayloadAction<any>) => {
+      state.data = action.payload;
     }
   },
 });
 
-export const {setTelemetry, setSession} = irsdkSlice.actions;
+export const {
+  setTelemetry,
+  setSession,
+  setData
+} = irsdkSlice.actions;
 
 export default irsdkSlice.reducer;

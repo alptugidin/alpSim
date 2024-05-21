@@ -16,7 +16,7 @@ const initialState: MenuState = {
     Speedometer: false,
     Trackmap: false,
     Radar: false,
-    FuelIndicator: false
+    FuelIndicator: false,
   }
 };
 

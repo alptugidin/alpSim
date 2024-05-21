@@ -1,9 +1,9 @@
-// import irsdk from 'node-irsdk-2023';
-import irsdk from 'node-irsdk-mjo';
+// import irsdk from 'node-irsdk-mjo';
 import {app, BrowserWindow, ipcMain, globalShortcut} from 'electron';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {spawn} from 'child_process';
 
 const require = createRequire(import.meta.url);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -28,6 +28,17 @@ const boxes: { [key: string]: BrowserWindow | null } = {
   FuelIndicator: null
 };
 
+const sizes: { [key: string]: { width: number, height: number } } = {
+  Standings: {
+    width: 560,
+    height: 600,
+  },
+  Debug: {
+    width: 1920,
+    height: 1080,
+  }
+};
+
 let boxPlacement = false;
 
 const createWindow = () => {
@@ -38,7 +49,6 @@ const createWindow = () => {
       nodeIntegration: true
     },
   });
-
   if (VITE_DEV_SERVER_URL) {
     void win.loadURL(VITE_DEV_SERVER_URL);
   } else {
@@ -62,12 +72,17 @@ app.on('activate', () => {
 app.on('ready', async () => {
   win = new BrowserWindow({
     icon: path.join(process.env.VITE_PUBLIC, 'electron-vite.svg'),
+    transparent: false,
+    frame: true,
+    // titleBarStyle: 'hidden',
+    // titleBarStyle: 'customButtonsOnHover',
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs'),
-      nodeIntegration: true,
     },
   });
-
+  // win.setBackgroundColor('#ff000020');
+  // win.setBackgroundMaterial('acrylic');
+  // win.setMenu(null);
   ipcMain.on('open-box', async (event, args) => {
     await openBox(args);
   });
@@ -92,32 +107,9 @@ app.on('ready', async () => {
     await win.loadFile(path.join(RENDERER_DIST, 'index.html'));
   }
 
-  init(win.webContents);
+  runPyScript(win.webContents);
 
 });
-
-const init = (webContents: Electron.WebContents) => {
-  const ir = irsdk.init({
-    telemetryUpdateInterval: 100 ,
-    sessionInfoUpdateInterval: 100,
-  });
-  // iracing.on('Telemetry', (telemetryData) => {
-  //   webContents.send('iracing-telemetry', telemetryData);
-  // });
-  //
-  ir.on('SessionInfo', (sessionInfo) => {
-    webContents.send('iracing-session', sessionInfo);
-    // log local time
-
-  });
-  ir.on('Telemetry', function (telemetryData) {
-    webContents.send('iracing-telemetry', telemetryData);
-  });
-
-  // ir.on('SessionInfo', function (sessionInfo) {
-  //   webContents.send('iracing-session', sessionInfo);
-  // });
-};
 
 const openBox = async (name: string) => {
   const boxWin = new BrowserWindow({
@@ -130,8 +122,9 @@ const openBox = async (name: string) => {
       nodeIntegration: true,
     },
   });
+
   boxes[name] = boxWin;
-  boxWin.setSize(600, 300);
+  boxWin.setSize(sizes[name].width, sizes[name].height);
   boxWin.setPosition(1900, 50);
   boxWin.resizable = false;
   boxWin.setAlwaysOnTop(true, 'pop-up-menu');
@@ -144,4 +137,16 @@ const openBox = async (name: string) => {
 const closeBox = async (name: string) => {
   if (!boxes[name]) return;
   boxes[name]?.close();
+};
+
+const runPyScript = (webContents: Electron.WebContents) => {
+  const scriptPath = './src/ir.py';
+  const interval = '30';
+  const python = spawn('python', [scriptPath, interval]);
+  python.stdout.on('data', (data) => {
+    webContents.send('iracing-data', data.toString());
+  });
+  python.stderr.on('data', (data) => {
+    // webContents.send('iracing-session-py', data.toString());
+  });
 };
