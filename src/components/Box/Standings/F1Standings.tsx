@@ -11,6 +11,7 @@ import {mock2} from '../../../mock2.ts';
 import useFetchFromSim from '../../../hooks/useFetchFromSim.tsx';
 
 const F1Standings = () => {
+  const listRef = React.createRef<HTMLDivElement>();
   const myUserName = 'Alptug Idin2';
   // const {session, telemetry} = useAppSelector(state => state.irsdk);
   // const session = mock2.session;
@@ -53,62 +54,16 @@ const F1Standings = () => {
     return color;
   };
 
-  const standingRangeSelection = (arr: any[]) => {
-    const myPosition = arr[arr.findIndex((item: any) => item.UserName === myUserName)].Position;
-    const firstThree = [...arr.slice(0, 3)];
-    console.log(arr);
-    const myGroup = [
-      arr[myPosition - 1],
-      arr[myPosition],
-      arr[myPosition + 1]
-    ];
-
-    const lastThree = [...arr.slice(-3)];
-    let outputArr = [];
-    if (arr.length < 10) {
-      outputArr = [
-        ...arr
-      ];
-    } else {
-      // console.log(myPosition);
-      if (myPosition < 4) {
-        outputArr = [
-          ...firstThree,
-          ...arr.slice(3, 6),
-          ...lastThree
-        ];
-      } else if (myPosition >= 3 && myPosition <= arr.length - 3) {
-        outputArr = [
-          ...firstThree,
-          ...arr.slice(-6, -3),
-          ...lastThree
-        ];
-      } else {
-        outputArr = arr;
-      }
-      // else {
-      //   outputArr = arr;
-      // }
-    }
-
-    const uniqueArr = [...outputArr.map((item: any) => item.UserName)];
-    return outputArr;
-    // return [...firstThree, ...myGroup, ...lastThree];
-  };
-  const conditionalSlice = (arr: any[]) => {
-    console.log(myInfos);
-    if (arr.length < 1) return [];
-    if (arr[0].CarClassShortName === myInfos.carClassName) {
-      return arr.slice(0, 10);
-    } else {
-      return arr.slice(0, 3);
-    }
-  };
-
   useEffect(() => {
-    console.log(driverStandings[0]);
 
   }, []);
+
+  useEffect(() => {
+    if (driverStandings.length > 0) {
+      // console.log(listRef.current);
+      console.log(myInfos);
+    }
+  }, [driverStandings]);
 
   return (
     <>
@@ -172,8 +127,8 @@ const F1Standings = () => {
                 className={'text-white font-ubuntu-bold text-[14px] italic text-center'}>{carClass[0].CarClassShortName}</span>
 
             </div>
-            {conditionalSlice(carClass)
-              .map((item: any, index: number) => (
+            <div ref={listRef}>
+              {carClass.map((item: any, index: number) => (
                 <div
                   key={index}
                   className={`flex items-center bg-[#181A20] bg-opacity-95 pl-1 h-7 text-[11px] ${myUserName === item.UserName ? 'bg-[#181A20]' : ' bg-[#181A20]'}`}
@@ -198,6 +153,7 @@ const F1Standings = () => {
                   <span className={'text-white w-16 text-center'}>{timeConvert(item.FastestTime)}</span>
                 </div>
               ))}
+            </div>
           </>
         ))}
       </div>

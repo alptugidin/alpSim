@@ -7,15 +7,17 @@ import {data} from '../data.ts';
 const myInfos = {
   id: -1,
   carClassName: '',
-  carClassId: -1
+  carClassId: -1,
+  classArrayIndex: -1,
+  displayedRowCount: 0,
 };
+
 const useFetchFromSim = () => {
   // const {data} = useAppSelector(state => state.irsdk);
   // const session = mock2.session;
   // const telemetry = mock2.telemetry;
   const [loading, setLoading] = useState(false);
   const [driverStandings, setDriverStandings] = useState<any[]>([]);
-  const myId = 0;
   useEffect(() => {
     const resultsPositions = data?.SessionInfo?.Sessions[0]?.ResultsPositions;
     const drivers = data?.DriverInfo?.Drivers;
@@ -65,17 +67,32 @@ const useFetchFromSim = () => {
     });
 
     const classes = [...new Set(standingArr.map(s => s.CarClassShortName))];
-
+    let rowCount = 0;
     if (classes.length > 1) {
       const arr: any[] = [];
       classes.forEach((carClass) => {
         arr.push(standingArr.filter((driver) => driver.CarClassShortName === carClass));
       });
-      setDriverStandings(arr);
+      const myClassIndex = arr.findIndex((subArr) => subArr[0].CarClassShortName === myInfos.carClassName);
+
+      const finArr: any[] = [];
+
+      arr.forEach((subArr, index) => {
+        if (index !== myClassIndex) {
+          finArr.push(subArr.slice(0, 3));
+          rowCount += 3;
+        } else {
+          finArr.push(subArr.slice(0, 10));
+          rowCount += 10;
+        }
+      });
+      setDriverStandings(finArr);
     } else {
       const arr: any[] = [...standingArr];
       setDriverStandings(arr);
+      rowCount = arr.length;
     }
+    myInfos.displayedRowCount = rowCount;
   }, [data]);
 
   return {
