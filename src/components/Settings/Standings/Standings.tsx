@@ -24,6 +24,11 @@ const Standings = () => {
         className={'bg-white/20 backdrop-blur-sm rounded-lg flex overflow-auto mt-4 h-96 text-white'}
       >
         {/*{JSON.stringify(jsonData.SessionInfo.Sessions[0].ResultsPositions, null, 2)}*/}
+        <button
+          onClick={() => {
+            window.box.setHeight('Standings', 555);
+          }}
+        >click</button>
       </div>
     </div>
   );

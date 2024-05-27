@@ -31,7 +31,7 @@ const boxes: { [key: string]: BrowserWindow | null } = {
 const sizes: { [key: string]: { width: number, height: number } } = {
   Standings: {
     width: 560,
-    height: 600,
+    height: 0,
   },
   Debug: {
     width: 1920,
@@ -132,6 +132,12 @@ const openBox = async (name: string) => {
   boxWin.setBackgroundColor('#00000000');
   // boxWin.setSkipTaskbar(true);
   await boxWin.loadURL(process.env.VITE_DEV_SERVER_URL + 'StandingsWrapper');
+  ipcMain.on('set-height', (event, args) => {
+    if (!boxes[args.name]) return;
+    const currentWidth = boxes[args.name]?.getSize()[0];
+    console.log(currentWidth, args.height);
+    boxes[args.name]?.setSize(currentWidth ?? 0, args.height);
+  });
 };
 
 const closeBox = async (name: string) => {

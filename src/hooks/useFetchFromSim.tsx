@@ -10,6 +10,7 @@ const myInfos = {
   carClassId: -1,
   classArrayIndex: -1,
   displayedRowCount: 0,
+  boxHeight: 0
 };
 
 const useFetchFromSim = () => {
@@ -68,8 +69,8 @@ const useFetchFromSim = () => {
 
     const classes = [...new Set(standingArr.map(s => s.CarClassShortName))];
     let rowCount = 0;
+    let arr: any[] = [];
     if (classes.length > 1) {
-      const arr: any[] = [];
       classes.forEach((carClass) => {
         arr.push(standingArr.filter((driver) => driver.CarClassShortName === carClass));
       });
@@ -88,11 +89,12 @@ const useFetchFromSim = () => {
       });
       setDriverStandings(finArr);
     } else {
-      const arr: any[] = [...standingArr];
+      arr = [...standingArr];
       setDriverStandings(arr);
-      rowCount = arr.length;
+      rowCount = arr.length + (arr.length * 3);
     }
-    myInfos.displayedRowCount = rowCount;
+
+    myInfos.boxHeight = (rowCount * 28) + (arr.length * 28) + (arr.length * 4);
   }, [data]);
 
   return {

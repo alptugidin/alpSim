@@ -16,6 +16,7 @@ export declare global {
       close: (name: string) => void;
       placement: (callBack: (param: boolean) => void) => void;
       debug: () => void;
+      setHeight: (name: string, height: number) => void;
     },
   }
 }

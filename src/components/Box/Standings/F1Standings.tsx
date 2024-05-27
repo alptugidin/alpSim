@@ -60,8 +60,7 @@ const F1Standings = () => {
 
   useEffect(() => {
     if (driverStandings.length > 0) {
-      // console.log(listRef.current);
-      console.log(myInfos);
+      window.box.setHeight('Standings', myInfos.boxHeight);
     }
   }, [driverStandings]);
 
@@ -79,7 +78,7 @@ const F1Standings = () => {
           </span>
         </div>
       }
-      <div className={`h-[100vh] text-f1 select-none overflow-hidden bg-opacity-40 ${placementMode ? 'draggable' : ''}`}>
+      <div className={`h-[100vh] bg-red-500 text-f1 select-none overflow-hidden bg-opacity-40 ${placementMode ? 'draggable' : ''}`}>
         <div
           id={'header'}
           className={'bg-[#181A20] text-white bg-opacity-95 text-[11px] flex h-5 items-center relative hidden'}
