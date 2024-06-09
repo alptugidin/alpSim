@@ -7,12 +7,15 @@ import StandingsWrapper from './components/Box/Standings/StandingsWrapper.tsx';
 import Debug from './components/Debug.tsx';
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/StandingsWrapper" element={<StandingsWrapper />} />
-      </Routes>
-    </BrowserRouter>
+    // add error boundary
+    <React.StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/StandingsWrapper" element={<StandingsWrapper />} />
+        </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
   );
 }
 

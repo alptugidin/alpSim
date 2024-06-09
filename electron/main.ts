@@ -124,7 +124,8 @@ const openBox = async (name: string) => {
   });
 
   boxes[name] = boxWin;
-  boxWin.setSize(sizes[name].width, sizes[name].height);
+  // boxWin.setSize(sizes[name].width, sizes[name].height);
+  boxWin.setSize(480, 500);
   boxWin.setPosition(1900, 50);
   boxWin.resizable = false;
   boxWin.setAlwaysOnTop(true, 'pop-up-menu');
@@ -135,7 +136,7 @@ const openBox = async (name: string) => {
   ipcMain.on('set-height', (event, args) => {
     if (!boxes[args.name]) return;
     const currentWidth = boxes[args.name]?.getSize()[0];
-    console.log(currentWidth, args.height);
+    // console.log(currentWidth, args.height);
     boxes[args.name]?.setSize(currentWidth ?? 0, args.height);
   });
 };

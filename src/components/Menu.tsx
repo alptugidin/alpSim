@@ -44,12 +44,12 @@ const Menu = () => {
       isActive: false,
       icon: <TbRadar2 />
     },
-    {
-      title: 'Fuel Indicator',
-      name: 'FuelIndicator',
-      isActive: false,
-      icon: <BsFillFuelPumpFill />
-    }
+    // {
+    //   title: 'Fuel Indicator',
+    //   name: 'FuelIndicator',
+    //   isActive: false,
+    //   icon: <BsFillFuelPumpFill />
+    // }
   ];
 
   const handleMenuSelection = (name: string) => {

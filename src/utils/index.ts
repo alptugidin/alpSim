@@ -1,4 +1,4 @@
 import timeConvert  from './timeConvert.ts';
 import intToHex from './intToHex.ts';
-
-export { timeConvert, intToHex };
+import decToHex  from './decToHex.ts';
+export { timeConvert, intToHex, decToHex };

@@ -7,9 +7,12 @@ import {setPlacementMode} from '../features/box/boxSlice.ts';
 import {IrsdkTelemetryEvent} from 'node-irsdk-mjo/src/types/TelemetryEvent';
 import {IrsdkSessionEvent, SplitTimeInfo} from 'node-irsdk-mjo/src/types/SessionEvent';
 import {setData, setSession, setTelemetry} from '../features/irsdk/irsdkSlice.ts';
+import {data} from '../data.ts';
+import useFetchFromSim from '../hooks/useFetchFromSim.tsx';
 
 const Home = () => {
   const dispatch = useAppDispatch();
+  const {driverStandings, loading, myInfos} = useFetchFromSim();
 
   const {name} = useAppSelector(state => state.menu);
   const [activeComponent, setActiveComponent] = useState<React.ReactNode>(<Standings />);
@@ -27,11 +30,18 @@ const Home = () => {
       dispatch(setPlacementMode(param));
     });
 
-    window.iracing.data((data: any) => {
-      // dispatch(setData(data));
-      // console.log(data);
-    });
+    // real data
+    // window.iracing.data((data: any) => {
+    //   if (data[0] === '{') {
+    //     dispatch(setData(data));
+    //     console.log(data);
+    //   }
+    // });
 
+    // mock data
+    setInterval(() => {
+      dispatch(setData(data.trim()));
+    } , 1000);
     // window.iRacing.telemetry((data: IrsdkTelemetryEvent) => {
     //   dispatch(setTelemetry(data));
     // });
@@ -47,7 +57,6 @@ const Home = () => {
     // window.iRacing.sessionPy((data: any) => {
     //   console.log(data);
     // });
-
   }, []);
 
   return (

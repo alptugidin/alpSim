@@ -220,33 +220,3 @@ try:
         sys.stdout.flush()
 except Exception as e:
     print(e)
-
-
-# print(ir['WeekendInfo']['WeekendOptions'])ü
-# print(ir['WeekendInfo'])
-# data = {
-#     "SessionInfo": ir['SessionInfo'],
-#     "WeekendInfo": ir['WeekendInfo'],
-#     "Telemetry": {
-#         "speed": ir['Speed']
-#     }
-# }
-
-
-
-# while True:
-#     ir.freeze_var_buffer_latest()
-#     data = {
-#         # "SessionInfo": ir['SessionInfo'],
-#         # "WeekendInfo": ir['WeekendInfo'],
-#         # "Telemetry": {
-#         #     "speed": ir['Speed'],
-#         #     "CarIdxClass": ir['CarIdxClass'],
-#         #     "SessionState": ir['DriverMarker']
-#         # }
-#         # "DriverInfo": ir['DriverInfo']
-#     }
-
-#     print(json.dumps(data))
-#     time.sleep(1/int(sys.argv[1]))
-#     sys.stdout.flush()

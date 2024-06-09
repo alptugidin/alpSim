@@ -2,7 +2,6 @@ import {useAppSelector} from '../hooks.ts';
 import {useEffect, useState} from 'react';
 import {timeConvert} from '../utils';
 import {mock2} from '../mock2.ts';
-import {data} from '../data.ts';
 
 const myInfos = {
   id: -1,
@@ -14,22 +13,31 @@ const myInfos = {
 };
 
 const useFetchFromSim = () => {
-  // const {data} = useAppSelector(state => state.irsdk);
-  // const session = mock2.session;
-  // const telemetry = mock2.telemetry;
+  const {data} = useAppSelector(state => state.irsdk);
   const [loading, setLoading] = useState(false);
   const [driverStandings, setDriverStandings] = useState<any[]>([]);
-  useEffect(() => {
-    const resultsPositions = data?.SessionInfo?.Sessions[0]?.ResultsPositions;
-    const drivers = data?.DriverInfo?.Drivers;
 
-    myInfos.id = data?.DriverInfo?.DriverUserID;
-    myInfos.carClassName = data?.DriverInfo?.Drivers.find(driver => driver.UserID === myInfos.id)?.CarClassShortName ?? '';
-    myInfos.carClassId = data?.DriverInfo?.Drivers.find(driver => driver.UserID === myInfos.id)?.CarClassID ?? -1;
+  useEffect(() => {
+    if (!data) return;
+    if (data[0] !== '{') return;
+    const jsonData = JSON.parse(data);
+    const eventType  = jsonData?.WeekendInfo.EventType;
+    const resultsPositions = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionType === eventType)?.ResultsPositions;
+    const qualifyResults = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionName === 'QUALIFY')?.ResultsPositions;
+    // .map((result: any, index: number) => ({
+    //   ...result,
+    //   FontCarLastTime: index + 1
+    // }));
+    const drivers = jsonData.DriverInfo?.Drivers;
+    myInfos.id = 921990; //jsonData.DriverInfo?.DriverUserID;
+    myInfos.carClassName = jsonData.DriverInfo?.Drivers.find((driver: any) => driver.UserID === myInfos.id)?.CarClassShortName ?? '';
+    myInfos.carClassId = jsonData.DriverInfo?.Drivers.find((driver: any) => driver.UserID === myInfos.id)?.CarClassID ?? -1;
 
     const standingArr: any[] = [];
-    resultsPositions?.forEach((result, index) => {
-      const driverInfo = drivers?.find(driver => driver.CarIdx === result.CarIdx);
+    resultsPositions?.forEach((result: any, index: number) => {
+      const frontCarTime = resultsPositions.find((res: any) => res.Position === result.Position - 1)?.Time ?? 0;
+      const leaderTime = resultsPositions.find((res: any) => res.Position === 1)?.Time ?? 0;
+      const driverInfo = drivers?.find((driver: any) => driver.CarIdx === result.CarIdx);
       const driverObj = {
         ...result,
         UserName: driverInfo?.UserName,
@@ -63,13 +71,15 @@ const useFetchFromSim = () => {
         DivisionName: driverInfo?.DivisionName,
         DivisionID: driverInfo?.DivisionID,
         CurDriverIncidentCount: driverInfo?.CurDriverIncidentCount,
+        StartPosition: qualifyResults?.find((qualifyResult: any) => qualifyResult.CarIdx === result.CarIdx)?.Position ?? 0,
+        FrontCarGap: result.Position === 1 ? 'int' : (result.Time - leaderTime).toFixed(1),
       };
       standingArr.push(driverObj);
     });
 
     const classes = [...new Set(standingArr.map(s => s.CarClassShortName))];
     let rowCount = 0;
-    let arr: any[] = [];
+    const arr: any[] = [];
     if (classes.length > 1) {
       classes.forEach((carClass) => {
         arr.push(standingArr.filter((driver) => driver.CarClassShortName === carClass));
@@ -89,7 +99,8 @@ const useFetchFromSim = () => {
       });
       setDriverStandings(finArr);
     } else {
-      arr = [...standingArr];
+      arr.push(standingArr.slice(0, 10));
+      // arr.push(standingArr);
       setDriverStandings(arr);
       rowCount = arr.length + (arr.length * 3);
     }

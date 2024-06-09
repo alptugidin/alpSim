@@ -19,6 +19,7 @@ body {
     /*  @apply bg-gray-100/60 backdrop-filter backdrop-blur-xl select-none rounded-lg;*/
     /*background-image: url(bg.png);*/
     /*background-size: cover;*/
+    @apply select-none;
 }
 
 .main-bg {

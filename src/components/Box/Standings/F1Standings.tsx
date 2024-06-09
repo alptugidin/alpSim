@@ -1,66 +1,57 @@
 import React, {useEffect, useState} from 'react';
 import {useAppSelector} from '../../../hooks.ts';
-import {mock} from '../../../mock.ts';
-import {FaChevronDown, FaChevronUp, FaRoad} from 'react-icons/fa';
+import {FaRoad} from 'react-icons/fa';
 import {TiArrowLoop} from 'react-icons/ti';
 import {TbTemperature} from 'react-icons/tb';
 import {LuAlertTriangle} from 'react-icons/lu';
-import timeDiff from '../../../utils/timeDiff.ts';
-import {intToHex, timeConvert} from '../../../utils';
-import {mock2} from '../../../mock2.ts';
+import {decToHex, intToHex, timeConvert} from '../../../utils';
 import useFetchFromSim from '../../../hooks/useFetchFromSim.tsx';
+import GainLoss from './GainLoss.tsx';
+import timeDiff from '../../../utils/timeDiff.ts';
+import { GiFullMotorcycleHelmet } from 'react-icons/gi';
 
 const F1Standings = () => {
   const listRef = React.createRef<HTMLDivElement>();
-  const myUserName = 'Alptug Idin2';
-  // const {session, telemetry} = useAppSelector(state => state.irsdk);
-  // const session = mock2.session;
-  // const telemetry = mock2.telemetry;
+  const myUserName = 'Jaco Horn';
   const {placementMode} = useAppSelector(state => state.box);
   const {driverStandings, loading, myInfos} = useFetchFromSim();
 
-  const {data} = useAppSelector(state => state.irsdk);
   const [jsonData, setJsonData] = useState<any>([]);
-  useEffect(() => {
-    if (data[0] === '{') {
-      setJsonData(JSON.parse(data));
-    }
-  }, [data]);
 
   const irating = (ir: string) => {
     return ir[0] + '.' + ir[1] + ' k';
   };
 
-  const srColor = (sr: string) => {
+  const srTextStyle = (sr: string) => {
     const c = sr.split(' ')[0];
     let color = '';
+    let fontWeight = 'normal';
     switch (c) {
       case 'R':
-        color = 'bg-red-500';
+        color = 'white';
         break;
       case 'D':
-        color = 'bg-orange-500';
+        color = 'white';
         break;
       case 'C':
-        color = 'bg-yellow-500';
+        color = 'black';
+        fontWeight = 'bold';
         break;
       case 'B':
-        color = 'bg-green-500';
+        color = 'black';
+        fontWeight = 'bold';
         break;
       case 'A':
-        color = 'bg-blue-500';
+        color = 'white';
         break;
     }
-    return color;
+    return {color, fontWeight};
   };
 
   useEffect(() => {
-
-  }, []);
-
-  useEffect(() => {
+    // console.log(driverStandings);
     if (driverStandings.length > 0) {
-      window.box.setHeight('Standings', myInfos.boxHeight);
+      // window.box.setHeight('Standings', myInfos.boxHeight);
     }
   }, [driverStandings]);
 
@@ -78,7 +69,8 @@ const F1Standings = () => {
           </span>
         </div>
       }
-      <div className={`h-[100vh] bg-red-500 text-f1 select-none overflow-hidden bg-opacity-40 ${placementMode ? 'draggable' : ''}`}>
+      {/*<div className={`h-[100vh] text-f1 select-none overflow-hidden bg-opacity-40 ${placementMode ? 'draggable' : ''}`}>*/}
+      <div className={'h-[100vh] text-f1 select-none overflow-hidden bg-opacity-40 draggable'}>
         <div
           id={'header'}
           className={'bg-[#181A20] text-white bg-opacity-95 text-[11px] flex h-5 items-center relative hidden'}
@@ -94,6 +86,7 @@ const F1Standings = () => {
             <span>1:11/~30m</span>
           </div>
           <div className={'w-12 flex justify-evenly items-center'}>
+
             <FaRoad className={'text-[16px] text-gray-400'}/>
             <span>30&#176;</span>
           </div>
@@ -116,44 +109,93 @@ const F1Standings = () => {
         {/*<hr className={'border border-red-600'}/>*/}
         {/*{standingRangeSelection(driverStandings)*/}
         {driverStandings.map((carClass: any[], index) => (
-          <>
-            <div
-              key={index}
-              className={'pl-1 h-7 text-[11px] w-1/2 flex items-center mt-1'}
-              style={{backgroundColor: intToHex(carClass[0].CarClassColor)}}
-            >
-              <span
-                className={'text-white font-ubuntu-bold text-[14px] italic text-center'}>{carClass[0].CarClassShortName}</span>
+          <div
+            key={index}
+          >
+            {/*<div*/}
+            {/*  className={'px-2 h-7 text-[11px] w-fit flex items-center mt-1 rounded-tl-lg bg-gradient-to-r from-black/50'}*/}
+            {/*  style={{backgroundColor: intToHex(carClass[0]?.CarClassColor)}}*/}
+            {/*>*/}
+            {/*  <div className={''}>*/}
+            {/*    <span*/}
+            {/*      className={'text-[#181A20] font-ubuntu-bold text-[14px] text-center z-20'}>{carClass[0].CarClassShortName}*/}
+            {/*    </span>*/}
+            {/*  </div>*/}
+            {/*  <div>*/}
 
+            {/*  </div>*/}
+            {/*  /!*<div className={'absolute h-7 w-1/2 left-0 bg-gradient-to-r from-black/50 z-10 rounded-t-lg'} />*!/*/}
+            {/*  <div className={'absolute h-7 w-[150px] right-0 bg-[#181A20] bg-opacity-80 flex items-center text-white rounded-tr-lg'}>*/}
+            {/*    <span className={'px-2'}>Gap</span>*/}
+            {/*    <span className={'px-1'}>Last</span>*/}
+            {/*  </div>*/}
+            {/*</div>*/}
+            <div className={'h-7 w-full rounded-t-lg overflow-hidden flex text-[11px] relative'}>
+              <div className={'w-fit h-full px-2 bg-white relative z-20 flex items-center font-bold'}>
+                <div className={'absolute h-full w-full bg-gradient-to-r from-black/50 z-10 left-0'} />
+                {carClass[0].CarClassShortName}
+              </div>
+              {/*<div className={''}>*/}
+              {/*    sdsd*/}
+              {/*</div>*/}
+              <div>
+                {/*<div className={'absolute h-full w-full bg-gradient-to-r from-black/50 z-10 right-0'} />*/}
+                <div className={'absolute h-full w-[150px] right-0 bg-[#181A20] bg-opacity-80 flex items-center text-white rounded-tr-lg'}>
+                  <span className={'px-2'}>Gap</span>
+                  <span className={'px-1'}>Last</span>
+                </div>
+              </div>
             </div>
             <div ref={listRef}>
-              {carClass.map((item: any, index: number) => (
+              {carClass.map((item: any, index2: number) => (
                 <div
-                  key={index}
-                  className={`flex items-center bg-[#181A20] bg-opacity-95 pl-1 h-7 text-[11px] ${myUserName === item.UserName ? 'bg-[#181A20]' : ' bg-[#181A20]'}`}
+                  key={index2}
+                  className={`flex items-center bg-[#181A20] bg-opacity-80 h-[26px] text-[11px] ${myUserName === item.UserName ? 'bg-[#181A20]' : ' bg-[#181A20]'}`}
                 >
-                  <span className={'text-white italic w-4 text-center'}>{item.ClassPosition + 1}</span>
-                  <span className={'text-white w-7 flex items-center justify-center gap-1 pl-1'}>
-                    <FaChevronUp className={'text-[10px] text-green-500'}/> 1
-                    {/*<FaChevronDown className={'text-[10px] text-red-500'} /> 1*/}
-                  </span>
+                  <span
+                    className={'text-white/80 w-5 text-center bg-black/50 h-full flex items-center justify-center'}>{item.ClassPosition + 1}</span>
                   {/*<span style={{color: '#' + item.CarDesignStr.split(',')[1]}} className={'w-4 text-center text-lg pb-0.5'}>|</span>*/}
-                  <span className={'text-white w-7 truncate text-center'}>#{item.CarNumber}</span>
+
+                  <span style={{color: decToHex(carClass[0]?.CarClassColor)}}
+                    className={'w-7 truncate text-center'}
+                  >
+                    #{item.CarNumber}
+                  </span>
                   <img src="/p.png" width={24} className={''} alt="partner"/>
-                  <span className={'text-white w-40 truncate'}>{item.UserName}</span>
+                  <span className={'text-white w-40 truncate'}>
+                    {item.UserName}
+                  </span>
                   <span
                     className={'bg-white w-11 text-center rounded-full font-bold'}>{irating(item.IRating.toString())}</span>
                   <span
-                    className={`ml-1.5 rounded-full font-bold w-12 text-center ${srColor(item.LicString)}`}>{item.LicString}</span>
-                  <span className={'text-white w-11 text-center'}>
-                    {/*{timeDiff({t1: item.LastLapTime, t2: item.BestTime, fixed: 1})}*/}
+                    // className={`ml-1.5 rounded-full font-bold w-12 text-center text-whit ${srColor(item.LicString)}`}>{item.LicString}</span>
+                    style={{
+                      backgroundColor: decToHex(item.LicColor),
+                      ...srTextStyle(item.LicString),
+                    }}
+                    className={'ml-1.5 rounded-full w-12 text-center'}
+                  >
+                    {item.LicString}
                   </span>
-                  <span className={'text-white w-16 text-center'}>{timeConvert(item.LastTime)}</span>
-                  <span className={'text-white w-16 text-center'}>{timeConvert(item.FastestTime)}</span>
+
+                  <span className={'text-white w-11 text-center'}>
+                    {/*{timeDiff({t1: item.LastTime, t2: item.BestTime})}*/}
+                    {/*{timeConvert(item.FrontCarLastTime)}*/}
+                    {item.FrontCarGap}
+                  </span>
+                  <span className={'text-white w-16 text-left'}>
+                    {timeConvert(item.LastTime)}
+                  </span>
+                  {/*<span className={'text-white w-16 text-left'}>*/}
+                  {/*  {timeConvert(item.FastestTime)}*/}
+                  {/*</span>*/}
+                  <span className={'text-white w-9 flex items-center justify-center gap-1 pl-1'}>
+                    <GainLoss startPos={item.StartPosition} currentPos={item.ClassPosition + 1}/>
+                  </span>
                 </div>
               ))}
             </div>
-          </>
+          </div>
         ))}
       </div>
     </>
@@ -161,3 +203,4 @@ const F1Standings = () => {
 };
 
 export default F1Standings;
+
