@@ -25,3 +25,4 @@ release
 *.sln
 *.sw?
 /src/data.ts
+./src/data.ts
