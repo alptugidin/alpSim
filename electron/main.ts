@@ -148,7 +148,7 @@ const closeBox = async (name: string) => {
 
 const runPyScript = (webContents: Electron.WebContents) => {
   const scriptPath = './src/ir.py';
-  const interval = '30';
+  const interval = '1';
   const python = spawn('python', [scriptPath, interval]);
   python.stdout.on('data', (data) => {
     webContents.send('iracing-data', data.toString());

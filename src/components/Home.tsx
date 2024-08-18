@@ -4,8 +4,6 @@ import {useAppDispatch, useAppSelector} from '../hooks.ts';
 import Standings from './Settings/Standings/Standings.tsx';
 import {useDispatch} from 'react-redux';
 import {setPlacementMode} from '../features/box/boxSlice.ts';
-import {IrsdkTelemetryEvent} from 'node-irsdk-mjo/src/types/TelemetryEvent';
-import {IrsdkSessionEvent, SplitTimeInfo} from 'node-irsdk-mjo/src/types/SessionEvent';
 import {setData, setSession, setTelemetry} from '../features/irsdk/irsdkSlice.ts';
 import {data} from '../data.ts';
 import useFetchFromSim from '../hooks/useFetchFromSim.tsx';
@@ -31,17 +29,17 @@ const Home = () => {
     });
 
     // real data
-    // window.iracing.data((data: any) => {
-    //   if (data[0] === '{') {
-    //     dispatch(setData(data));
-    //     console.log(data);
-    //   }
-    // });
+    window.iracing.data((data: any) => {
+      if (data[0] === '{') {
+        dispatch(setData(data));
+        // console.log(data);
+      }
+    });
 
     // mock data
-    setInterval(() => {
-      dispatch(setData(data.trim()));
-    } , 1000);
+    // setInterval(() => {
+    //   dispatch(setData(data.trim()));
+    // } , 1000);
     // window.iRacing.telemetry((data: IrsdkTelemetryEvent) => {
     //   dispatch(setTelemetry(data));
     // });
