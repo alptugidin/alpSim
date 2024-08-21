@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import {timeConvert} from '../utils';
 import {mock2} from '../mock2.ts';
 import {json} from 'react-router-dom';
+import {standingHelper} from '../helpers';
 const ID = 705294;
 const myInfos = {
   id: -1,
@@ -59,50 +60,15 @@ const useFetchFromSim = () => {
     const classNames = [...new Set(drivers.map((s: any) => s.CarClassShortName))] as string[];
     const classObject: {[key: string]: any} = {};
     const myClass = driver?.CarClassShortName;
+    const pos = driver?.ClassPosition;
 
     classNames.forEach((carClass: string, i: number) => {
       classObject[carClass] = drivers.filter((driver: any) => driver.CarClassShortName === carClass);
       if (carClass !== myClass) {
         classObject[carClass] = classObject[carClass].slice(0, 3);
       } else {
-        const classCount = classObject[carClass].length;
-        const classCountArr = [...Array(classCount).keys()].map((i) => i.toString());
-        // const position = driver.ClassPosition + 1; // teamRacing ? driver.ClassPosition : driver.Position;
-        const pos = 1;
-        //   create an array contain 1 to 10 string nuymbers
-        const arr = [...Array(10).keys()].map((i) => (i+1).toString());
-        const c = classObject[carClass];
-        let resArr: any[] = [];
-
-        // if (position <= 4) {
-        //   // 1, 2, 3, 4, 5, 6, c.length - 2, c.length - 1, c.length
-        // } else if (position > 4) {
-        //   // 1, 3, 4, 5, 6, 7, c.length - 1, c.length
-        // } else if (position < c.length - 3) {
-        //   // 1, 2, c.length - 6, c.length - 5, c.length - 4, c.length - 3, c.length - 2, c.length - 1, c.length
-        // }  else if (position >= c.length - 3) {
-        //   // 1, 2, c.length - 6, c.length - 5, c.length - 4, c.length - 3, c.length - 2, c.length - 1, c.length
-        // }
-
-        const range = [pos - 2, pos - 1, pos, pos + 1, pos + 2];
-
-        resArr = [
-          1,
-          2,
-          3,
-          pos - 2,
-          pos - 1,
-          pos,
-          pos + 1,
-          pos + 2,
-          c.length
-        ];
-
-        if (pos <= 3) {
         //
-        }
-
-        console.log([...new Set(resArr)]);
+        classObject[carClass] = standingHelper(pos, classObject[carClass]);
       }
     });
 
