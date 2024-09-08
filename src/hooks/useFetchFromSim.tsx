@@ -1,10 +1,12 @@
 import {useAppSelector} from '../hooks.ts';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {timeConvert} from '../utils';
 import {mock2} from '../mock2.ts';
 import {json} from 'react-router-dom';
 import {standingHelper} from '../helpers';
-const ID = 705294;
+import {EventInfos} from '../types';
+
+const ID = 94608;
 const myInfos = {
   id: -1,
   carClassName: '',
@@ -18,21 +20,30 @@ const useFetchFromSim = () => {
   const {data} = useAppSelector(state => state.irsdk);
   const [loading, setLoading] = useState(false);
   const [driverStandings, setDriverStandings] = useState<any[]>([]);
+  const [rawData, setRawData] = useState<any[]>([]); // TEMP
+  const jsonDataRef = useRef<any>(null);
+  const [eventInfos, setEventInfos] = useState<EventInfos>({} as EventInfos);
 
   useEffect(() => {
     if (!data) return;
     if (data[0] !== '{') return;
 
     const jsonData = JSON.parse(data);
-    const eventType  = jsonData?.WeekendInfo.EventType;
+    jsonDataRef.current = jsonData;
+    const eventType = jsonData?.WeekendInfo.EventType;
     const teamRacing = jsonData?.WeekendInfo.TeamRacing === 1;
+    setEventInfos(prev => ({
+      ...prev,
+      teamRacing,
+      sessionTime: jsonData?.SessionTime
+    }));
     const currentSessionResults = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionType === eventType)?.ResultsPositions;
     // const practiceResults = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionType === 'Practice')?.ResultsPositions;
     // const qualifyResults = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionType === 'Qualify')?.ResultsPositions;
     // const raceResults = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionType === 'Race')?.ResultsPositions;
 
     const drivers = jsonData.DriverInfo?.Drivers
-      .filter((d: any) => d.UserName !== 'Pace Car')
+      .filter((d: any) => d.UserName !== 'Pace Car' && d.UserName !== 'Alptug Idin2')
       .map((driver: any) => {
         const driverData = currentSessionResults?.find((result: any) => result.CarIdx === driver.CarIdx);
         return {
@@ -42,7 +53,7 @@ const useFetchFromSim = () => {
           Lap: driverData?.Lap,
           Time: driverData?.Time,
           FastestLap: driverData?.FastestLap,
-          FastestTime : driverData?.FastestTime,
+          FastestTime: driverData?.FastestTime,
           LastTime: driverData?.LastTime,
           LapsLed: driverData?.LapsLed,
           LapsComplete: driverData?.LapsComplete,
@@ -51,6 +62,8 @@ const useFetchFromSim = () => {
           Incidents: driverData?.Incidents,
           ReasonOutId: driverData?.ReasonOutId,
           ReasonOutStr: driverData?.ReasonOutStr,
+          CarIdxLapDistPct: jsonData.CarIdxLapDistPct[driver.CarIdx],
+          CarIdxLapCompleted: jsonData.CarIdxLapCompleted[driver.CarIdx],
         };
       });
     const sordCondition = teamRacing ? 'ClassPosition' : 'Position';
@@ -58,7 +71,7 @@ const useFetchFromSim = () => {
     // const driver = drivers.find((driver: any) => driver.UserID === jsonData.DriverInfo.DriverUserID); // real data
     const driver = drivers.find((driver: any) => driver.UserID === ID); // mock data
     const classNames = [...new Set(drivers.map((s: any) => s.CarClassShortName))] as string[];
-    const classObject: {[key: string]: any} = {};
+    const classObject: { [key: string]: any } = {};
     const myClass = driver?.CarClassShortName;
     const pos = driver?.ClassPosition;
 
@@ -67,103 +80,22 @@ const useFetchFromSim = () => {
       if (carClass !== myClass) {
         classObject[carClass] = classObject[carClass].slice(0, 3);
       } else {
-        //
         classObject[carClass] = standingHelper(pos, classObject[carClass]);
       }
     });
-
-  //   console.log(jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionType === eventType));
-  //   const qualifyResults = jsonData?.SessionInfo?.Sessions.find((session: any) => session.SessionName === 'QUALIFY')?.ResultsPositions;
-  //   // .map((result: any, index: number) => ({
-  //   //   ...result,
-  //   //   FontCarLastTime: index + 1
-  //   // }));
-  //   const drivers = jsonData.DriverInfo?.Drivers;
-  //
-  //   myInfos.id = jsonData.DriverInfo?.DriverUserID;
-  //   myInfos.carClassName = jsonData.DriverInfo?.Drivers.find((driver: any) => driver.UserID === myInfos.id)?.CarClassShortName ?? '';
-  //   myInfos.carClassId = jsonData.DriverInfo?.Drivers.find((driver: any) => driver.UserID === myInfos.id)?.CarClassID ?? -1;
-  //
-  //   const standingArr: any[] = [];
-  //   resultsPositions?.forEach((result: any, index: number) => {
-  //     const frontCarTime = resultsPositions.find((res: any) => res.Position === result.Position - 1)?.Time ?? 0;
-  //     const leaderTime = resultsPositions.find((res: any) => res.Position === 1)?.Time ?? 0;
-  //     const driverInfo = drivers?.find((driver: any) => driver.CarIdx === result.CarIdx);
-  //     console.log(result);
-  //     const driverObj = {
-  //       ...result,
-  //       UserName: driverInfo?.UserName,
-  //       CarClassID: driverInfo?.CarClassID,
-  //       AbbrevName: driverInfo?.AbbrevName,
-  //       Initials: driverInfo?.Initials,
-  //       UserID: driverInfo?.UserID,
-  //       TeamID: driverInfo?.TeamID,
-  //       TeamName: driverInfo?.TeamName,
-  //       CarNumber: driverInfo?.CarNumber,
-  //       CarNumberRaw: driverInfo?.CarNumberRaw,
-  //       CarPath: driverInfo?.CarPath,
-  //       CarID: driverInfo?.CarID,
-  //       CarIsPaceCar: driverInfo?.CarIsPaceCar,
-  //       CarIsAI: driverInfo?.CarIsAI,
-  //       CarScreenName: driverInfo?.CarScreenName,
-  //       CarScreenNameShort: driverInfo?.CarScreenNameShort,
-  //       CarClassShortName: driverInfo?.CarClassShortName,
-  //       CarClassRelSpeed: driverInfo?.CarClassRelSpeed,
-  //       CarClassLicenseLevel: driverInfo?.CarClassLicenseLevel,
-  //       CarClassMaxFuelPct: driverInfo?.CarClassMaxFuelPct,
-  //       CarClassColor: driverInfo?.CarClassColor,
-  //       CarClassEstLapTime: driverInfo?.CarClassEstLapTime,
-  //       IRating: driverInfo?.IRating,
-  //       LicLevel: driverInfo?.LicLevel,
-  //       LicSubLevel: driverInfo?.LicSubLevel,
-  //       LicString: driverInfo?.LicString,
-  //       LicColor: driverInfo?.LicColor,
-  //       ClubName: driverInfo?.ClubName,
-  //       ClubID: driverInfo?.ClubID,
-  //       DivisionName: driverInfo?.DivisionName,
-  //       DivisionID: driverInfo?.DivisionID,
-  //       CurDriverIncidentCount: driverInfo?.CurDriverIncidentCount,
-  //       StartPosition: qualifyResults?.find((qualifyResult: any) => qualifyResult.CarIdx === result.CarIdx)?.Position ?? 0,
-  //       FrontCarGap: result.Position === 1 ? 'int' : (result.Time - leaderTime).toFixed(1),
-  //     };
-  //     standingArr.push(driverObj);
-  //   });
-  //
-  //   const classes = [...new Set(standingArr.map(s => s.CarClassShortName))];
-  //   let rowCount = 0;
-  //   const arr: any[] = [];
-  //   if (classes.length > 1) {
-  //     classes.forEach((carClass) => {
-  //       arr.push(standingArr.filter((driver) => driver.CarClassShortName === carClass));
-  //     });
-  //     const myClassIndex = arr.findIndex((subArr) => subArr[0].CarClassShortName === myInfos.carClassName);
-  //
-  //     const finArr: any[] = [];
-  //
-  //     arr.forEach((subArr, index) => {
-  //       if (index !== myClassIndex) {
-  //         finArr.push(subArr.slice(0, 3));
-  //         rowCount += 3;
-  //       } else {
-  //         finArr.push(subArr.slice(0, 10));
-  //         rowCount += 10;
-  //       }
-  //     });
-  //     setDriverStandings(finArr);
-  //   } else {
-  //     arr.push(standingArr.slice(0, 10));
-  //     // arr.push(standingArr);
-  //     setDriverStandings(arr);
-  //     rowCount = arr.length + (arr.length * 3);
-  //   }
-  //   myInfos.boxHeight = (rowCount * 28) + (arr.length * 28) + (arr.length * 4);
+    setRawData(drivers);
+    setDriverStandings(Object.values(classObject));
   }, [data]);
 
   return {
     driverStandings,
     loading,
-    myInfos
+    myInfos,
+    rawData,
+    jsonData: jsonDataRef.current,
+    eventInfos
   };
 };
 
 export default useFetchFromSim;
+
