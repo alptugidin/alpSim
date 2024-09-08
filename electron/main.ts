@@ -91,6 +91,10 @@ app.on('ready', async () => {
     await closeBox(args);
   });
 
+  ipcMain.on('close-all-boxes', () => {
+    closeAllBoxes();
+  });
+
   globalShortcut.register('F8', () => {
     win.webContents.send('box-placement', boxPlacement = !boxPlacement);
   });
@@ -146,9 +150,17 @@ const closeBox = async (name: string) => {
   boxes[name]?.close();
 };
 
+const closeAllBoxes = () => {
+  Object.keys(boxes).forEach((key) => {
+    if (boxes[key]) {
+      boxes[key]?.close();
+    }
+  });
+};
+
 const runPyScript = (webContents: Electron.WebContents) => {
   const scriptPath = './src/ir.py';
-  const interval = '1';
+  const interval = '30';
   const python = spawn('python', [scriptPath, interval]);
   python.stdout.on('data', (data) => {
     webContents.send('iracing-data', data.toString());

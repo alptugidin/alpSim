@@ -5,88 +5,11 @@ import useFetchFromSim from '../../../hooks/useFetchFromSim.tsx';
 
 // setArr(data.values.CarIdxF2Time.filter(i => i !== -1)); TODO Standings Çalışıyor
 const Standings = () => {
-  const {driverStandings, loading, myInfos} = useFetchFromSim();
+  const {driverStandings, loading, myInfos, rawData, jsonData} = useFetchFromSim();
   const [pos, setPos] = useState(1);
   const arr = Array.from({length: 23}, (_, i) => (i + 1).toString());
 
   const handleOnClick = () => {
-    // let finArr: any[] = [];
-    // if (pos < 5) {
-    //   // 1, 2, 3, 4, 5, 6, 7, 8, 9, last
-    //   finArr = [
-    //     ...arr.slice(0, 8),
-    //     arr.at(-1)
-    //   ];
-    // } else if (pos >=5 && pos <= 15) {
-    //   // first 3, pos - 2, pos - 1, pos, pos + 1, pos + 2, last 3
-    //   finArr = [
-    //     ...arr.slice(0, 3),
-    //     pos - 2,
-    //     pos - 1,
-    //     pos,
-    //     pos + 1,
-    //     pos + 2,
-    //     arr.at(-1)
-    //   ];
-    // } else if (pos > 15 && pos < arr.length) {
-    //   // first 3, pos - 2, pos - 1, pos, pos + 1, pos + 2, last 3
-    //   finArr = [
-    //     ...arr.slice(0, 3),
-    //     pos - 2,
-    //     pos - 1,
-    //     pos,
-    //     pos + 1 < arr.length ? pos + 1 : -1,
-    //     pos + 2 < arr.length ? pos + 2 : -1,
-    //     arr.at(-1)
-    //   ];
-    //   if(arr.length - pos === 1){
-    //     finArr = [
-    //       ...arr.slice(0, 3),
-    //       pos - 4,
-    //       pos - 3,
-    //       pos - 2,
-    //       pos - 1,
-    //       pos,
-    //       pos + 1,
-    //     ];
-    //   } else if(arr.length - pos === 2){
-    //     finArr = [
-    //       ...arr.slice(0, 3),
-    //       pos - 3,
-    //       pos - 2,
-    //       pos - 1,
-    //       pos,
-    //       pos + 1,
-    //       pos + 2,
-    //     ];
-    //   } else if(arr.length - pos === 3){
-    //     finArr = [
-    //       ...arr.slice(0, 3),
-    //       pos - 2,
-    //       pos - 1,
-    //       pos,
-    //       pos + 1,
-    //       pos + 2,
-    //       pos + 3,
-    //     ];
-    //   }
-    // } else if (pos === arr.length  ) {
-    //   // first 3, pos - 2, pos - 1, pos, pos + 1, last 3
-    //   finArr = [
-    //     ...arr.slice(0, 3),
-    //     pos - 5,
-    //     pos - 4,
-    //     pos - 3,
-    //     pos - 2,
-    //     pos - 1,
-    //     pos
-    //   ];
-    // }
-    //
-    // const standings = [...new Set(finArr.map(x => x.toString()))];
-    // // .filter(i => i !== '-1');
-    // // .map(i => i === pos.toString() ? Number(i) : i);
-    // console.log(pos, standings);
   };
   return (
     <div>
@@ -102,8 +25,13 @@ const Standings = () => {
         <button
           onClick={handleOnClick}
           className={'bg-red-500 px-1 rounded-lg border border-red-800'}
-        >click</button>
-        <br />
+        >click
+        </button>
+        <button
+          className={'bg-blue-500 px-1 rounded-lg border border-red-800'}
+          onClick={() => window.box.closeAllBoxes()}
+        >kill all popups</button>
+        <br/>
         <input
           type="range"
           min="1"
@@ -113,6 +41,37 @@ const Standings = () => {
         />
         <br/>
         {pos}
+        <br/>
+        <button
+          className={'bg-red-500 px-1 rounded-lg border border-red-800'}
+          onClick={() => {
+            console.log(jsonData);
+            void navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2));
+          }}
+        >copy jsonData
+        </button>
+
+        <br/>
+        <br/>
+        <button
+          className={'bg-red-500 px-1 rounded-lg border border-red-800'}
+          onClick={() => {
+            console.log(rawData);
+            void navigator.clipboard.writeText(JSON.stringify(rawData, null, 2));
+          }}
+        >copy drivers
+        </button>
+
+        <br/>
+        <br/>
+        <button
+          className={'bg-red-500 px-1 rounded-lg border border-red-800'}
+          onClick={() => {
+            console.log(driverStandings);
+            void navigator.clipboard.writeText(JSON.stringify(driverStandings, null, 2));
+          }}
+        >copy standings
+        </button>
       </div>
     </div>
   );

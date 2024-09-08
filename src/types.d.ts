@@ -17,6 +17,7 @@ export declare global {
       placement: (callBack: (param: boolean) => void) => void;
       debug: () => void;
       setHeight: (name: string, height: number) => void;
+      closeAllBoxes: () => void;
     },
   }
 }
@@ -35,3 +36,8 @@ export interface IToggle {
 }
 
 export type Theme = 'f1' | 'acc';
+
+export type EventInfos = {
+  teamRacing: boolean;
+  sessionTime: number;
+}

@@ -12,9 +12,9 @@ import { GiFullMotorcycleHelmet } from 'react-icons/gi';
 
 const F1Standings = () => {
   const listRef = React.createRef<HTMLDivElement>();
-  const myUserName = 'Jaco Horn';
+  const myId = '94608';
   const {placementMode} = useAppSelector(state => state.box);
-  const {driverStandings, loading, myInfos} = useFetchFromSim();
+  const {driverStandings, loading, eventInfos} = useFetchFromSim();
 
   const [jsonData, setJsonData] = useState<any>([]);
 
@@ -141,8 +141,8 @@ const F1Standings = () => {
               <div>
                 {/*<div className={'absolute h-full w-full bg-gradient-to-r from-black/50 z-10 right-0'} />*/}
                 <div className={'absolute h-full w-[150px] right-0 bg-[#181A20] bg-opacity-80 flex items-center text-white rounded-tr-lg'}>
-                  <span className={'px-2'}>Gap</span>
-                  <span className={'px-1'}>Last</span>
+                  <span className={'px-2'}>Last</span>
+                  <span className={'px-6'}>Best</span>
                 </div>
               </div>
             </div>
@@ -150,7 +150,7 @@ const F1Standings = () => {
               {carClass.map((item: any, index2: number) => (
                 <div
                   key={index2}
-                  className={`flex items-center bg-[#181A20] bg-opacity-80 h-[26px] text-[11px] ${myUserName === item.UserName ? 'bg-[#181A20]' : ' bg-[#181A20]'}`}
+                  className={`flex items-center bg-[#181A20] bg-opacity-80 h-[26px] text-[11px] ${myId == item.UserID ? 'bg-yellow-500' : ' bg-[#181A20]'}`}
                 >
                   <span
                     className={'text-white/80 w-5 text-center bg-black/50 h-full flex items-center justify-center'}>{item.ClassPosition + 1}</span>
@@ -159,14 +159,15 @@ const F1Standings = () => {
                   <span style={{color: decToHex(carClass[0]?.CarClassColor)}}
                     className={'w-7 truncate text-center'}
                   >
-                    #{item.CarNumber}
+                    {/*#{item.CarNumber}*/}
+                    {item.CarIdx}
                   </span>
                   <img src="/p.png" width={24} className={''} alt="partner"/>
                   <span className={'text-white w-40 truncate'}>
-                    {item.UserName}
+                    {eventInfos.teamRacing ? item.TeamName : item.UserName}
                   </span>
                   <span
-                    className={'bg-white w-11 text-center rounded-full font-bold'}>{irating(item.IRating.toString())}</span>
+                    className={'bg-white w-11 text-center rounded-full font-bold'}>{irating(item.IRating?.toString())}</span>
                   <span
                     // className={`ml-1.5 rounded-full font-bold w-12 text-center text-whit ${srColor(item.LicString)}`}>{item.LicString}</span>
                     style={{
@@ -184,11 +185,13 @@ const F1Standings = () => {
                     {item.FrontCarGap}
                   </span>
                   <span className={'text-white w-16 text-left'}>
-                    {timeConvert(item.LastTime)}
+                    {/*  {timeConvert(item.LastTime)}*/}
+                    {(item.CarIdxLapDistPct * 100).toFixed(1)}
                   </span>
-                  {/*<span className={'text-white w-16 text-left'}>*/}
-                  {/*  {timeConvert(item.FastestTime)}*/}
-                  {/*</span>*/}
+                  <span className={'text-white w-16 text-left'}>
+                    {/*  {timeConvert(item?.FastestTime)}*/}
+                    {item.CarIdxLapCompleted}
+                  </span>
                   <span className={'text-white w-9 flex items-center justify-center gap-1 pl-1'}>
                     <GainLoss startPos={item.StartPosition} currentPos={item.ClassPosition + 1}/>
                   </span>

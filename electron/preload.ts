@@ -10,6 +10,7 @@ contextBridge.exposeInMainWorld('iracing', {
 contextBridge.exposeInMainWorld('box', {
   open: (name: string) => ipcRenderer.send('open-box', name),
   close: (name: string) => ipcRenderer.send('close-box', name),
+  closeAllBoxes: () => ipcRenderer.send('close-all-boxes'),
   debug: () => ipcRenderer.send('debug'),
   placement: (callBack: (param: boolean) => boolean) => ipcRenderer.on('box-placement', (_event, param) => callBack(param)),
   setHeight: (name: string, height: number) => ipcRenderer.send('set-height', {name, height})
